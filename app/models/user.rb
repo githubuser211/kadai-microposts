@@ -31,19 +31,17 @@ class User < ApplicationRecord
   end
   
   
-  def tofavorite(other_user)
-    unless self == other_user
-      self.favorites.find_or_create_by(micropost_id: other_user.id)
-    end
+  def tofavorite(micropost)
+      self.favorites.find_or_create_by(micropost_id: micropost.id)
   end
 
-  def untofavorite(other_user)
-    favorite = self.favorites.find_by(micropost_id: other_user.id)
+  def untofavorite(micropost)
+    favorite = self.favorites.find_by(micropost_id: micropost.id)
     favorite.destroy if favorite
   end
 
-  def tofavorite?(other_micropost)
-    self.tofavorites.include?(other_micropost)
+  def tofavorite?(micropost)
+    self.tofavorites.include?(micropost)
   end
   
   
